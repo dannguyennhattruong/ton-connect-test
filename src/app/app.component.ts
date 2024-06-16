@@ -49,6 +49,13 @@ export class AppComponent implements OnInit {
   }
 
   async connectWallet() {
+    const connected = await this.tonConnectService.connected();
+    if (connected) {
+      if (!this.address) {
+        location.reload()
+      }
+      return;
+    }
     const walletInfor: any = await this.tonConnectService.connect();
     this.address = (new TonWeb.Address(walletInfor?.account?.address)).toString(true, true, true, false);
   }
