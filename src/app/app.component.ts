@@ -10,6 +10,7 @@ import TonWeb from 'tonweb';
 export class AppComponent implements OnInit {
   title = 'app-test';
   address = '';
+  connected = false;
   constructor(private tonConnectService: TonConntectService) {
 
   }
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit {
   checkConnection() {
     this.tonConnectService.connected().then(r => {
       if (r) {
+        this.connected = true;
         this.address = (new TonWeb.Address(this.tonConnectService.currentTonWalletInfo?.account?.address)).toString(true, true, true, false);
       }
       else {
@@ -35,7 +37,7 @@ export class AppComponent implements OnInit {
       }
     }).finally(() => {
       alert(this.address);
-      if(!this.address) {
+      if(!this.address && this.connected) {
         location.reload()
       }
     })
