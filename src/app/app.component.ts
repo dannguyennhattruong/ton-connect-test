@@ -16,6 +16,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkConnection();
+    this.tonConnectService.instance.onStatusChange(
+      walletAndwalletInfo => {
+        // update state/reactive variables to show updates in the ui
+        alert(JSON.stringify(walletAndwalletInfo))
+
+      }
+    );
     this.tonConnectService.instance.connectionRestored.then(restored => {
       if (restored) {
         alert(

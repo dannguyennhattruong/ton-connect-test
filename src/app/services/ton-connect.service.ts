@@ -47,7 +47,7 @@ export class TonConntectService {
                 walletAndwalletInfo => {
                     // update state/reactive variables to show updates in the ui
                     this.currentTonWalletInfo = walletAndwalletInfo;
-                    console.log(this.currentTonWalletInfo);
+                    alert(JSON.stringify(this.currentTonWalletInfo))
 
                     resolve(this.currentTonWalletInfo)
                 }
