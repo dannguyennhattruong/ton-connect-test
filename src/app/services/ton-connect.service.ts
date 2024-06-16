@@ -13,7 +13,7 @@ export class TonConntectService {
 
             this.instance.uiOptions = {
                 actionsConfiguration: {
-                    twaReturnUrl: 'https://t.me/DAPP_HANGARX_BOT/hangarx'
+                    twaReturnUrl: 'https://t.me/tonconnect_test_bot/tonconnecttestapp'
                 },
                 walletsListConfiguration: {
                 }
