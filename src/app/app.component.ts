@@ -33,6 +33,11 @@ export class AppComponent implements OnInit {
       else {
         this.address = '';
       }
+    }).finally(() => {
+      alert(this.address);
+      if(!this.address) {
+        location.reload()
+      }
     })
   }
 
