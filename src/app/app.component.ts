@@ -15,7 +15,19 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.checkConnection()
+    this.checkConnection();
+    this.tonConnectService.instance.connectionRestored.then(restored => {
+      if (restored) {
+        alert(
+          'Connection restored. Wallet: ' +
+          JSON.stringify({
+            ...this.tonConnectService.instance
+          }, null, 4)
+        );
+      } else {
+        alert('Connection was not restored.');
+      }
+    });
   }
 
   checkConnection() {

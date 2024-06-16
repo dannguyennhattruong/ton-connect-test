@@ -3,7 +3,7 @@ import { TonConnectUI } from "@tonconnect/ui";
 
 @Injectable()
 export class TonConntectService {
-    private instance!: TonConnectUI;
+    public instance!: TonConnectUI;
     public currentTonWalletInfo: any;
     constructor() {
         if (!this.instance) {
