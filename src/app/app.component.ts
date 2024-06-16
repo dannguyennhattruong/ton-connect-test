@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   address = '';
   address2 = '';
   connected = false;
+  checkTime = 1;
   constructor(private tonConnectService: TonConntectService) {
 
   }
@@ -25,6 +26,9 @@ export class AppComponent implements OnInit {
         this.address2 = (new TonWeb.Address(walletAndwalletInfo?.account?.address as string)).toString(true, true, true, false);
       }
     );
+    if (localStorage.getItem('checkConnection') !== 'true') {
+      this.trycheckConnection();
+    }
   }
 
   checkConnection() {
@@ -41,10 +45,12 @@ export class AppComponent implements OnInit {
 
   async disconnect() {
     await this.tonConnectService.disconnect();
+    localStorage.setItem('checkConnection', 'false');
     location.reload()
   }
 
   async connectWallet() {
+    localStorage.setItem('checkConnection', 'false');
     const connected = await this.tonConnectService.connected();
     alert(connected)
     if (connected) {
@@ -53,5 +59,25 @@ export class AppComponent implements OnInit {
     }
     const walletInfor: any = await this.tonConnectService.connect();
     this.address = (new TonWeb.Address(walletInfor?.account?.address)).toString(true, true, true, false);
+  }
+
+  trycheckConnection() {
+    let i = setInterval(() => {
+      console.log(this.checkTime)
+      this.tonConnectService.connected().then(r => {
+        if (this.checkTime === 3) {
+          clearInterval(i);
+          localStorage.setItem('checkConnection', 'true');
+          location.reload();
+        }
+        this.connected = r;
+        if (this.connected) {
+          clearInterval(i);
+        }
+        else {
+          this.checkTime += 1;
+        }
+      })
+    }, 2.5 * 1000)
   }
 }
