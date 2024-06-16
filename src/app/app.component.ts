@@ -19,27 +19,16 @@ export class AppComponent implements OnInit {
     this.tonConnectService.instance.onStatusChange(
       walletAndwalletInfo => {
         // update state/reactive variables to show updates in the ui
-        alert(JSON.stringify(walletAndwalletInfo))
+        // alert(JSON.stringify(walletAndwalletInfo || {}))
 
       }
     );
-    this.tonConnectService.instance.connectionRestored.then(restored => {
-      if (restored) {
-        alert(
-          'Connection restored. Wallet: ' +
-          JSON.stringify({
-            ...this.tonConnectService.instance
-          }, null, 4)
-        );
-      } else {
-        alert('Connection was not restored.');
-      }
-    });
   }
 
   checkConnection() {
     this.tonConnectService.connected().then(r => {
       if (r) {
+        location.reload();
         this.address = (new TonWeb.Address(this.tonConnectService.currentTonWalletInfo?.account?.address)).toString(true, true, true, false);
       }
       else {
