@@ -10,18 +10,19 @@ import TonWeb from 'tonweb';
 export class AppComponent implements OnInit {
   title = 'app-test';
   address = '';
+  address2 = '';
   connected = false;
   constructor(private tonConnectService: TonConntectService) {
 
   }
 
   ngOnInit(): void {
-    this.checkConnection();
+    this.checkConnection()
     this.tonConnectService.instance.onStatusChange(
       walletAndwalletInfo => {
         // update state/reactive variables to show updates in the ui
         // alert(JSON.stringify(walletAndwalletInfo || {}))
-        this.address = (new TonWeb.Address(walletAndwalletInfo?.account?.address as string)).toString(true, true, true, false);
+        this.address2 = (new TonWeb.Address(walletAndwalletInfo?.account?.address as string)).toString(true, true, true, false);
       }
     );
   }
@@ -35,17 +36,12 @@ export class AppComponent implements OnInit {
       else {
         this.address = '';
       }
-      alert(this.address);
-
-      if (!this.address && r) {
-        location.reload()
-      }
     })
   }
 
   async disconnect() {
     await this.tonConnectService.disconnect();
-    this.checkConnection();
+    location.reload()
   }
 
   async connectWallet() {
