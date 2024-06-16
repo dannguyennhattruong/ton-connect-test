@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
       walletAndwalletInfo => {
         // update state/reactive variables to show updates in the ui
         // alert(JSON.stringify(walletAndwalletInfo || {}))
-
+        this.address = (new TonWeb.Address(walletAndwalletInfo?.account?.address as string)).toString(true, true, true, false);
       }
     );
   }
@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
   checkConnection() {
     this.tonConnectService.connected().then(r => {
       if (r) {
-        location.reload();
         this.address = (new TonWeb.Address(this.tonConnectService.currentTonWalletInfo?.account?.address)).toString(true, true, true, false);
       }
       else {
