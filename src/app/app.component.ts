@@ -46,10 +46,9 @@ export class AppComponent implements OnInit {
 
   async connectWallet() {
     const connected = await this.tonConnectService.connected();
+    alert(connected)
     if (connected) {
-      if (!this.address) {
-        location.reload()
-      }
+      location.reload()
       return;
     }
     const walletInfor: any = await this.tonConnectService.connect();
